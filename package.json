@@ -1,0 +1,12 @@
+{
+  "name": "arcade",
+  "version": "1.0.0",
+  "description": "Arcade game for Udacity nanodegree",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1"
+  },
+  "author": "Carlos Frias",
+  "homepage": "https://github.com/friasdesign/frontend-nanodegree-arcade-game#readme"
+}
