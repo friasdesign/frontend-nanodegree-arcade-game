@@ -1,10 +1,9 @@
 // TODO: 
-//       Add score system
 //       Add obstacles, when score gets higher
 //       Refactor code
 //       Create API
 
-// GameObject Singleton handles: Score, restart and gameover.
+// GameObject Singleton
 var GameObject = (function GameObject(){
   var instance;
 
@@ -58,6 +57,13 @@ var GameObject = (function GameObject(){
       ctx.fillText(scoreText, ctx.canvas.clientWidth-20, 30);      
     }
 
+    function resetGame() {
+      score = 0;
+      updateScoreText();
+      level = 1;
+      updateLevelText();
+    }
+
     return {
       updateScore: function updateScore() {
         score += 10;
@@ -69,6 +75,7 @@ var GameObject = (function GameObject(){
       },
       gameOver: function gameOver() {
         player.kill();
+
         gameover = true;
       },
       isGameOver: function isGameOver() {
@@ -77,7 +84,7 @@ var GameObject = (function GameObject(){
       restart: function restart(){
         player.spawn();
         gameover = false;
-        score = 0;
+        resetGame();
       },
       render: function renderScreen() {
         drawGameOverScreen();
