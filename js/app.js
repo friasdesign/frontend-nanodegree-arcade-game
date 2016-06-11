@@ -1,10 +1,92 @@
 // TODO: 
-//       Add score system and game over text
+//       Add score system
 //       Add obstacles, when score gets higher
 //       Refactor code
 //       Create API
 
-// Grid Singletone, added in order to keep all related functions under the same
+// GameObject Singleton handles: Score, restart and gameover.
+var GameObject = (function GameObject(){
+  var instance;
+
+  function init() {
+    var score = 0,
+        scoreText = 'Score: ' + score,
+        level = 1,
+        levelText = 'Level: ' + level,
+        gameover = false;
+
+    function updateScoreText() {
+      scoreText = 'Score: ' + score;
+    }
+
+    function updateLevelText() {
+      levelText = 'Level: ' + level;
+    }
+
+    function drawGameOverScreen() {
+      if(gameover) {
+        let width = ctx.canvas.clientWidth,
+            height = ctx.canvas.clientHeight;
+
+        // Draw full canvas transparent background for game over screen
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.fillRect(0, 0, width, height);
+
+        // Draw Game Over text
+        ctx.fillStyle = '#fff';
+        ctx.font = '48px Sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', width/2, height/2);
+
+        // Draw press R to restart, text
+        ctx.font = '18px Sans-serif';
+        ctx.fillText('Press R to restart', width/2, (height/2) + 40);
+      }
+    }
+
+    function drawGUI() {
+
+    }
+
+    return {
+      updateScore: function updateScore() {
+        score += 10;
+        updateScoreText();
+        if(score/10 % 50 === 0) {
+          level += 1;
+          updateLevelText();
+        }
+      },
+      gameOver: function gameOver() {
+        player.kill();
+        gameover = true;
+      },
+      isGameOver: function isGameOver() {
+        return gameOver;
+      },
+      restart: function restart(){
+        player.spawn();
+        gameover = false;
+        score = 0;
+      },
+      render: function renderScreen() {
+        drawGameOverScreen();
+        drawGUI();
+      }
+    };
+  }
+
+  return {
+    getInstance: function getInstance() {
+      if(!instance) {
+        instance = init();
+      }
+      return instance;
+    }
+  };
+})();
+
+// Grid Singleton, added in order to keep all related functions under the same
 // namespace. Used Addy Osmani's pattern from his book:
 // https://addyosmani.com/resources/essentialjsdesignpatterns/book/#singletonpatternjavascript
 var Grid = (function Grid(){
@@ -94,155 +176,26 @@ var Grid = (function Grid(){
   };
 })();
 
-// Enemies our player must avoid
-function Enemy() {
-  // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
-
-  // The image/sprite for our enemies, this uses
-  // a helper we've provided to easily load images
-  var image = 'images/enemy-bug.png';
-  PhysicalObject.call(this, image);
-
-  // Although no value assigned here, I declare speed property here for better
-  // readability, instead of simply letting setSpeed method define it.
-  this.speed;
-  this.setSpeed();
-
-  // Setting collider
-  this.collider.setCollider({
-    originY: grid.boxHeight * 0.9,
-    height: grid.boxHeight * 0.9
-  });
-};
-
-classify(Enemy, PhysicalObject);
-
-Enemy.prototype.spawn = function spawn() {
-  var randRow = 0,
-    randCol = 0;
-
-  // This code generates a random int number between 1 and 3 representing a
-  // row in which the enemies will spawn.
-  randRow = getRandomIntInclusive(1, 3);
-
-  // This code generates a random int as previous one, in this case we want
-  // some enemies to spawn off screen.
-  randCol = getRandomIntInclusive(-2, 0);
-  
-  this.x = grid.colToX(randCol);
-  this.y = grid.rowToY(randRow);
+// This Object represents an element that should be displayed in canvas. This is
+// the most abstract type of object
+function InCanvasObject(x, y) {
+  this.x = x || 0;
+  this.y = y || 0;
 }
-
-Enemy.prototype.setSpeed = function setSpeed() {
-  this.speed = getRandomIntInclusive(100, 300);
-}
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
-  
-  // If outbounds, then go back to the left!
-  if(this.x >= 500){
-    let randCol = getRandomIntInclusive(-4, -1),
-        randRow = getRandomIntInclusive(1, 3);
-    this.x = grid.colToX(randCol);
-
-    // Reset speed and row, to make things a little more interesting
-    this.setSpeed();
-    this.y = grid.rowToY(randRow);
-  }
-  this.x = this.x + (this.speed * dt);
-
-  if(this.collider.collision(player.collider)) {
-    player.spawn();
-  }
-  // console.log('Enemy Updated');
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  this.collider.render();
-};
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-function Player() {
-  var image = 'images/char-boy.png';
-
-  PhysicalObject.call(this, image);
-
-  // Setting collider
-  this.collider.setCollider({
-    originY: grid.boxHeight,
-    originX: 10,
-    height: grid.boxHeight * 0.7,
-    width: grid.boxWidth * 0.85
-  });
-}
-
-classify(Player, PhysicalObject);
-
-Player.prototype.update = function update() {
-  if(grid.inWater(this.y)){
-    this.spawn();
-  }
-};
-Player.prototype.render = function render() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  this.collider.render();
-};
-Player.prototype.handleInput = function handleInput(input) {
-  var current = {
-        x: this.x,
-        y: this.y
-      },
-      axis = '',
-      distance = 0,
-      nextPos = 0;
-
-  switch(input) {
-    case 'down': axis = 'y'; distance = 1;
-      break;
-    case 'up': axis = 'y'; distance = -1;
-      break;
-    case 'right': axis = 'x'; distance = 1;
-      break;
-    case 'left': axis = 'x'; distance = -1;
-  }
-
-  // In fact, it can be done better, with a different approach,
-  // but for now it's OK!
-  if(axis === 'y') {
-    nextPos = grid.displaceRows(current[axis], distance);
-    if(grid.inBound(null, nextPos)) {
-     this[axis] = nextPos;
-    }
-  }
-  if(axis === 'x') {
-    nextPos = grid.displaceCols(current[axis], distance);
-    if(grid.inBound(nextPos, null)) {
-     this[axis] = nextPos;
-    }
-  }
-};
 
 // This Object represents all Physical Objects that can be placed in the grid.
 function PhysicalObject(image) {
+  InCanvasObject.call(this);
   this.sprite = image;
   this.collider = new Collider(this);
-  this.spawn();
 }
+
+classify(PhysicalObject, InCanvasObject);
 
 PhysicalObject.prototype.spawn = function spawn() {
   this.x = grid.colToX(2);
   this.y = grid.rowToY(5);
-}
+};
 
 // A collider allows collision detection. obj reference the object related to
 // the collider (i.e. Player, Enemy, etc.)
@@ -308,13 +261,157 @@ Collider.prototype.collision = function intersects(collider) {
             (thisPos.y + this.height) < colliderPos.y);
 }
 
+// Enemies our player must avoid
+function Enemy() {
+  // Variables applied to each of our instances go here,
+  // we've provided one for you to get started
+
+  // The image/sprite for our enemies, this uses
+  // a helper we've provided to easily load images
+  var image = 'images/enemy-bug.png';
+  PhysicalObject.call(this, image);
+
+  // Although no value assigned here, I declare speed property here for better
+  // readability, instead of simply letting setSpeed method define it.
+  this.speed = 0;
+
+  // Setting collider
+  this.collider.setCollider({
+    originY: grid.boxHeight * 0.9,
+    height: grid.boxHeight * 0.9
+  });
+};
+
+classify(Enemy, PhysicalObject);
+
+Enemy.prototype.spawn = function spawn() {
+  var randRow = 0,
+      randCol = 0;
+
+  // This code generates a random int number between 1 and 3 representing a
+  // row in which the enemies will spawn.
+  randRow = getRandomIntInclusive(1, 3);
+
+  // This code generates a random int as previous one, in this case we want
+  // some enemies to spawn off screen.
+  randCol = getRandomIntInclusive(-2, 0);
+  
+  this.x = grid.colToX(randCol);
+  this.y = grid.rowToY(randRow);
+}
+
+Enemy.prototype.setSpeed = function setSpeed() {
+  this.speed = getRandomIntInclusive(100, 300);
+}
+
+// Update the enemy's position, required method for game
+// Parameter: dt, a time delta between ticks
+Enemy.prototype.update = function(dt) {
+  // You should multiply any movement by the dt parameter
+  // which will ensure the game runs at the same speed for
+  // all computers.
+  
+  // If outbounds, then go back to the left!
+  if(this.x >= 500){
+    let randCol = getRandomIntInclusive(-4, -1),
+        randRow = getRandomIntInclusive(1, 3);
+    this.x = grid.colToX(randCol);
+
+    // Reset speed and row, to make things a little more interesting
+    this.setSpeed();
+    this.y = grid.rowToY(randRow);
+  }
+  this.x = this.x + (this.speed * dt);
+
+  if(this.collider.collision(player.collider)) {
+    console.log('collision');
+    gameObject.gameOver();
+  }
+};
+
+// Draw the enemy on the screen, required method for game
+Enemy.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  this.collider.render();
+};
+
+// Now write your own player class
+// This class requires an update(), render() and
+// a handleInput() method.
+function Player() {
+  var image = 'images/char-boy.png';
+
+  PhysicalObject.call(this, image);
+
+  // Setting collider
+  this.collider.setCollider({
+    originY: grid.boxHeight,
+    originX: 10,
+    height: grid.boxHeight * 0.7,
+    width: grid.boxWidth * 0.85
+  });
+}
+
+classify(Player, PhysicalObject);
+
+Player.prototype.update = function update() {
+  if(grid.inWater(this.y)){
+    this.spawn();
+  }
+};
+Player.prototype.render = function render() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  this.collider.render();
+};
+Player.prototype.kill = function kill() {
+  this.x = -200;
+  this.y = -200;
+};
+Player.prototype.handleInput = function handleInput(input) {
+  var current = {
+        x: this.x,
+        y: this.y
+      },
+      axis = '',
+      distance = 0,
+      nextPos = 0;
+
+  switch(input) {
+    case 'down': axis = 'y'; distance = 1;
+      break;
+    case 'up': axis = 'y'; distance = -1;
+      break;
+    case 'right': axis = 'x'; distance = 1;
+      break;
+    case 'left': axis = 'x'; distance = -1;
+      break;
+    case 'r': if(gameObject.isGameOver) gameObject.restart();
+  }
+
+  // In fact, it can be done better, with a different approach,
+  // but for now it's OK!
+  if(axis === 'y') {
+    nextPos = grid.displaceRows(current[axis], distance);
+    if(grid.inBound(null, nextPos)) {
+      this[axis] = nextPos;
+    }
+  }
+  if(axis === 'x') {
+    nextPos = grid.displaceCols(current[axis], distance);
+    if(grid.inBound(nextPos, null)) {
+      this[axis] = nextPos;
+    }
+  }
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var enemiesNumber = 5,
   grid = Grid.getInstance(),
   allEnemies = [], 
-  player = new Player();
+  player = new Player(),
+  gameObject = GameObject.getInstance();
 
 for(let i=0; i < enemiesNumber; i++) {
   allEnemies.push(new Enemy());
@@ -328,7 +425,8 @@ document.addEventListener('keyup', function(e) {
     37: 'left',
     38: 'up',
     39: 'right',
-    40: 'down'
+    40: 'down',
+    82: 'r'
   };
 
   player.handleInput(allowedKeys[e.keyCode]);

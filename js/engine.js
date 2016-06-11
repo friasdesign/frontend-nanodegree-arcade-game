@@ -152,6 +152,7 @@ var Engine = (function(global) {
         });
 
         player.render();
+        gameObject.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -159,7 +160,11 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        player.spawn();
+        allEnemies.forEach(function spawnEnemies(enemy){
+            enemy.spawn();
+            enemy.setSpeed();
+        });
     }
 
     /* Go ahead and load all of the images we know we're going to need to
