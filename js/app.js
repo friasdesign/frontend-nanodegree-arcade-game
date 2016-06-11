@@ -1,5 +1,6 @@
 // TODO: 
-//       Add obstacles, when score gets higher
+//       Add obstacles collision
+//       Reset obstacles when game finish
 //       Refactor code
 //       Create API
 
@@ -64,13 +65,29 @@ var GameObject = (function GameObject(){
       updateLevelText();
     }
 
+    function levelUp() {
+      if(level < 5) {
+        level += 1;
+        updateLevelText();
+
+        switch(level) {
+          case 3: obstacles.push(new Obstacle(3,4));
+            break;
+          case 4: obstacles.push(new Obstacle(1,3));
+                  obstacles.push(new Obstacle(3,2));
+            break;
+          case 5: obstacles.push(new Obstacle(1,1));
+                  obstacles.push(new Obstacle(3,0));
+        }
+      }
+    }
+
     return {
       updateScore: function updateScore() {
-        score += 10;
+        score += 50;
         updateScoreText();
         if(score % 50 === 0) {
-          level += 1;
-          updateLevelText();
+            levelUp();
         }
       },
       gameOver: function gameOver() {
@@ -89,6 +106,9 @@ var GameObject = (function GameObject(){
       render: function renderScreen() {
         drawGameOverScreen();
         drawGUI();
+      },
+      getLevel: function getLevel() {
+        return level;
       }
     };
   }
@@ -207,12 +227,19 @@ function PhysicalObject(image) {
   this.collider = new Collider(this);
 }
 
-classify(PhysicalObject, InCanvasObject);
+inherit(PhysicalObject, InCanvasObject);
 
 PhysicalObject.prototype.spawn = function spawn() {
   this.x = grid.colToX(2);
   this.y = grid.rowToY(5);
 };
+
+PhysicalObject.prototype.render = function render() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  this.collider.render();
+};
+
+PhysicalObject.prototype.update = function(dt) {};
 
 // A collider allows collision detection. obj reference the object related to
 // the collider (i.e. Player, Enemy, etc.)
@@ -299,7 +326,7 @@ function Enemy() {
   });
 };
 
-classify(Enemy, PhysicalObject);
+inherit(Enemy, PhysicalObject);
 
 Enemy.prototype.spawn = function spawn() {
   var randRow = 0,
@@ -318,7 +345,11 @@ Enemy.prototype.spawn = function spawn() {
 }
 
 Enemy.prototype.setSpeed = function setSpeed() {
-  this.speed = getRandomIntInclusive(100, 300);
+  // Difficulty multiplies enemy speed up to 2 times
+  var level = gameObject.getLevel(),
+      difficulty = level <= 3 ? level : 3; 
+
+  this.speed = getRandomIntInclusive(100, 250) * difficulty/2;
 }
 
 // Update the enemy's position, required method for game
@@ -346,18 +377,11 @@ Enemy.prototype.update = function(dt) {
   }
 };
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  this.collider.render();
-};
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 function Player() {
   var image = 'images/char-boy.png';
-
   PhysicalObject.call(this, image);
 
   // Setting collider
@@ -369,7 +393,7 @@ function Player() {
   });
 }
 
-classify(Player, PhysicalObject);
+inherit(Player, PhysicalObject);
 
 Player.prototype.update = function update() {
   if(grid.inWater(this.y)){
@@ -377,10 +401,7 @@ Player.prototype.update = function update() {
     this.spawn();
   }
 };
-Player.prototype.render = function render() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  this.collider.render();
-};
+
 Player.prototype.kill = function kill() {
   this.x = -200;
   this.y = -200;
@@ -422,6 +443,17 @@ Player.prototype.handleInput = function handleInput(input) {
   }
 };
 
+// Obstacles
+function Obstacle(row, col) {
+  var image = 'images/Rock.png';
+  PhysicalObject.call(this, image);
+
+  this.x = grid.colToX(col);
+  this.y = grid.rowToY(row);
+}
+
+inherit(Obstacle, PhysicalObject);
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -429,12 +461,12 @@ var enemiesNumber = 5,
   grid = Grid.getInstance(),
   allEnemies = [], 
   player = new Player(),
-  gameObject = GameObject.getInstance();
+  gameObject = GameObject.getInstance(),
+  obstacles = [];
 
 for(let i=0; i < enemiesNumber; i++) {
   allEnemies.push(new Enemy());
 }
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -459,7 +491,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 // Used for inheritance
-function classify(child, parent) {
+function inherit(child, parent) {
   child.prototype = Object.create(parent.prototype);
   child.prototype.constructor = child;
 }
