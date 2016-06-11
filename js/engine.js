@@ -119,6 +119,10 @@ var Engine = (function(global) {
             numCols = 5,
             row, col;
 
+        // Draw Background
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"

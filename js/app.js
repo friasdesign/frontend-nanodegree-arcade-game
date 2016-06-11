@@ -46,13 +46,23 @@ var GameObject = (function GameObject(){
 
     function drawGUI() {
 
+      // Draw Level Text
+      ctx.fillStyle = '#fff';
+      ctx.font = '20px Sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(levelText, 20, 30);
+
+      // Draw Score Text
+      ctx.font = '20px Sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(scoreText, ctx.canvas.clientWidth-20, 30);      
     }
 
     return {
       updateScore: function updateScore() {
         score += 10;
         updateScoreText();
-        if(score/10 % 50 === 0) {
+        if(score % 50 === 0) {
           level += 1;
           updateLevelText();
         }
@@ -356,6 +366,7 @@ classify(Player, PhysicalObject);
 
 Player.prototype.update = function update() {
   if(grid.inWater(this.y)){
+    gameObject.updateScore();
     this.spawn();
   }
 };
