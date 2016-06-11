@@ -1,7 +1,8 @@
-// TODO: Add out of bounds validation
+// TODO: 
 //       Add score system and game over text
 //       Add obstacles, when score gets higher
 //       Refactor code
+//       Create API
 
 // Grid Singletone, added in order to keep all related functions under the same
 // namespace. Used Addy Osmani's pattern from his book:
@@ -70,7 +71,12 @@ var Grid = (function Grid(){
       return false;
     },
     inBound: function inBound(x, y) {
-      if(x > colToX(maxCol) || y > rowToY(maxRow)) {
+      // It takes origin as default value, so you can omit one param.
+      x = x || origin.x;
+      y = y || origin.y;
+
+      if(x > this.colToX(maxCol) || y > this.rowToY(maxRow) ||
+         y < origin.y || x < origin.x) {
         return false;
       }
       return true;
@@ -141,11 +147,13 @@ Enemy.prototype.update = function(dt) {
   
   // If outbounds, then go back to the left!
   if(this.x >= 500){
-    let randCol = getRandomIntInclusive(-4, -1);
+    let randCol = getRandomIntInclusive(-4, -1),
+        randRow = getRandomIntInclusive(1, 3);
     this.x = grid.colToX(randCol);
 
-    // Reset speed, to make things a little more interesting
+    // Reset speed and row, to make things a little more interesting
     this.setSpeed();
+    this.y = grid.rowToY(randRow);
   }
   this.x = this.x + (this.speed * dt);
 
@@ -190,17 +198,37 @@ Player.prototype.render = function render() {
   this.collider.render();
 };
 Player.prototype.handleInput = function handleInput(input) {
-  var currentX = this.x,
-    currentY = this.y,
-    newPosition = 0;
+  var current = {
+        x: this.x,
+        y: this.y
+      },
+      axis = '',
+      distance = 0,
+      nextPos = 0;
+
   switch(input) {
-    case 'down': this.y = grid.displaceRows(currentY, 1);
+    case 'down': axis = 'y'; distance = 1;
       break;
-    case 'up': this.y = grid.displaceRows(currentY, -1);
+    case 'up': axis = 'y'; distance = -1;
       break;
-    case 'right': this.x = grid.displaceCols(currentX, 1);
+    case 'right': axis = 'x'; distance = 1;
       break;
-    case 'left': this.x = grid.displaceCols(currentX, -1);
+    case 'left': axis = 'x'; distance = -1;
+  }
+
+  // In fact, it can be done better, with a different approach,
+  // but for now it's OK!
+  if(axis === 'y') {
+    nextPos = grid.displaceRows(current[axis], distance);
+    if(grid.inBound(null, nextPos)) {
+     this[axis] = nextPos;
+    }
+  }
+  if(axis === 'x') {
+    nextPos = grid.displaceCols(current[axis], distance);
+    if(grid.inBound(nextPos, null)) {
+     this[axis] = nextPos;
+    }
   }
 };
 
@@ -240,7 +268,7 @@ function Collider(obj, originX, originY, width, height) {
 Collider.prototype.render = function render() {
   var position = this.getPosition();
 
-  ctx.fillStyle = 'rgba(0,0,0,0)';
+  ctx.fillStyle = 'rgba(0,0,0,0)'; // Change alpha to 1 for testing
   ctx.fillRect(position.x, position.y, this.width, this.height);
 };
 
@@ -287,8 +315,6 @@ var enemiesNumber = 5,
   grid = Grid.getInstance(),
   allEnemies = [], 
   player = new Player();
-
-
 
 for(let i=0; i < enemiesNumber; i++) {
   allEnemies.push(new Enemy());
