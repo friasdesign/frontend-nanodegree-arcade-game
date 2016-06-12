@@ -1,6 +1,4 @@
 // TODO: 
-//       Add obstacles collision
-//       Reset obstacles when game finish
 //       Refactor code
 //       Create API
 
@@ -58,13 +56,6 @@ var GameObject = (function GameObject(){
       ctx.fillText(scoreText, ctx.canvas.clientWidth-20, 30);      
     }
 
-    function resetGame() {
-      score = 0;
-      updateScoreText();
-      level = 1;
-      updateLevelText();
-    }
-
     function levelUp() {
       if(level < 5) {
         level += 1;
@@ -100,8 +91,15 @@ var GameObject = (function GameObject(){
       },
       restart: function restart(){
         player.spawn();
+        
         gameover = false;
-        resetGame();
+
+        obstacles = [];
+
+        score = 0;
+        updateScoreText();
+        level = 1;
+        updateLevelText();
       },
       render: function renderScreen() {
         drawGameOverScreen();
@@ -384,6 +382,10 @@ function Player() {
   var image = 'images/char-boy.png';
   PhysicalObject.call(this, image);
 
+  // Last position
+  this.lastX = this.x;
+  this.lastY = this.y;
+
   // Setting collider
   this.collider.setCollider({
     originY: grid.boxHeight,
@@ -402,10 +404,21 @@ Player.prototype.update = function update() {
   }
 };
 
+Player.prototype.bounce = function bounce() {
+  this.x = this.lastX;
+  this.y = this.lastY;
+};
+
 Player.prototype.kill = function kill() {
   this.x = -200;
   this.y = -200;
 };
+
+Player.prototype.recordLastPosition = function record() {
+  this.lastY = this.y;
+  this.lastX = this.x;
+};
+
 Player.prototype.handleInput = function handleInput(input) {
   var current = {
         x: this.x,
@@ -432,13 +445,15 @@ Player.prototype.handleInput = function handleInput(input) {
   if(axis === 'y') {
     nextPos = grid.displaceRows(current[axis], distance);
     if(grid.inBound(null, nextPos)) {
-      this[axis] = nextPos;
+      this.recordLastPosition();
+      this.y = nextPos;
     }
   }
   if(axis === 'x') {
     nextPos = grid.displaceCols(current[axis], distance);
     if(grid.inBound(nextPos, null)) {
-      this[axis] = nextPos;
+      this.recordLastPosition();
+      this.x = nextPos;
     }
   }
 };
@@ -450,9 +465,21 @@ function Obstacle(row, col) {
 
   this.x = grid.colToX(col);
   this.y = grid.rowToY(row);
+
+  // Setting collider
+  this.collider.setCollider({
+    originY: grid.boxHeight * 0.9,
+    height: grid.boxHeight * 0.9
+  });  
 }
 
 inherit(Obstacle, PhysicalObject);
+
+Obstacle.prototype.update = function update() {
+  if(this.collider.collision(player.collider)) {
+    player.bounce();
+  }
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
