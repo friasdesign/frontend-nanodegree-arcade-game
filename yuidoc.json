@@ -1,0 +1,8 @@
+{
+    "name": "Arcade Game API",
+    "description": "Arcade Game API: API for understanding an amazing 100% JS Arcade Game.",
+    "version": "1.0.0",
+    "options": {
+        "outdir": "./API"
+    }
+}

@@ -1,8 +1,99 @@
-// Used Addy Osmani's pattern from his book:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js/app.js - Arcade Game API</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="Arcade Game API" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 1.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Collider.html">Collider</a></li>
+                                <li><a href="../classes/Enemy.html">Enemy</a></li>
+                                <li><a href="../classes/GameObject.html">GameObject</a></li>
+                                <li><a href="../classes/GameObjectInstanciator.html">GameObjectInstanciator</a></li>
+                                <li><a href="../classes/Grid.html">Grid</a></li>
+                                <li><a href="../classes/GridInstanciator.html">GridInstanciator</a></li>
+                                <li><a href="../classes/InCanvasObject.html">InCanvasObject</a></li>
+                                <li><a href="../classes/Obstacle.html">Obstacle</a></li>
+                                <li><a href="../classes/PhysicalObject.html">PhysicalObject</a></li>
+                                <li><a href="../classes/Player.html">Player</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: js/app.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+// Used Addy Osmani&#x27;s pattern from his book:
 // https://addyosmani.com/resources/essentialjsdesignpatterns/book/#singletonpatternjavascript
 
 /**
- * A `GameObjectInstanciator` is used to create a unique instance of GameObject,
+ * A &#x60;GameObjectInstanciator&#x60; is used to create a unique instance of GameObject,
  * if called more than once, the same instance is returned.
  *
  * @class GameObjectInstanciator
@@ -10,7 +101,7 @@
  */
 var GameObject = (function gameObjectInstanciator(){
   /**
-   * Instance of `GameObject` to be returned.
+   * Instance of &#x60;GameObject&#x60; to be returned.
    *
    * @property instance
    * @type Object
@@ -18,7 +109,7 @@ var GameObject = (function gameObjectInstanciator(){
   var instance;
 
   /**
-   * A `GameObject` object is used to deal with game related actions, such as
+   * A &#x60;GameObject&#x60; object is used to deal with game related actions, such as
    * restarting game, score system, difficulty and levelling.
    * 
    * @class GameObject
@@ -39,10 +130,10 @@ var GameObject = (function gameObjectInstanciator(){
      * 
      * @property scoreText
      * @type String
-     * @default 'Score: 0'
+     * @default &#x27;Score: 0&#x27;
      * @private
      */
-    var scoreText = 'Score: ' + score;
+    var scoreText = &#x27;Score: &#x27; + score;
     /**
      * Holds the current level.
      * 
@@ -57,10 +148,10 @@ var GameObject = (function gameObjectInstanciator(){
      * 
      * @property levelText
      * @type String
-     * @default 'Level: 1'
+     * @default &#x27;Level: 1&#x27;
      * @private
      */
-    var levelText = 'Level: ' + level;
+    var levelText = &#x27;Level: &#x27; + level;
     /**
      * Whether the game is over or not.
      * 
@@ -72,27 +163,27 @@ var GameObject = (function gameObjectInstanciator(){
     var gameover = false;
 
     /**
-     * Updates `scoreText`.
+     * Updates &#x60;scoreText&#x60;.
      * 
      * @method updateScoreText
      * @private
      */
     function updateScoreText() {
-      scoreText = 'Score: ' + score;
+      scoreText = &#x27;Score: &#x27; + score;
     }
 
     /**
-     * Updates `levelText`.
+     * Updates &#x60;levelText&#x60;.
      * 
      * @method updateLevelText
      * @private
      */
     function updateLevelText() {
-      levelText = 'Level: ' + level;
+      levelText = &#x27;Level: &#x27; + level;
     }
 
     /**
-     * It draws gameover screen if `gameover` is true. Gameover screen shows a 
+     * It draws gameover screen if &#x60;gameover&#x60; is true. Gameover screen shows a 
      * _GAMEOVER_ message and ask the use to press __R__ key to restart.
      * 
      * @method drawGameOverScreen
@@ -104,18 +195,18 @@ var GameObject = (function gameObjectInstanciator(){
             height = ctx.canvas.clientHeight;
 
         // Draw full canvas transparent background for game over screen
-        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.fillStyle = &#x27;rgba(0,0,0,0.6)&#x27;;
         ctx.fillRect(0, 0, width, height);
 
         // Draw Game Over text
-        ctx.fillStyle = '#fff';
-        ctx.font = '48px Sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('GAME OVER', width/2, height/2);
+        ctx.fillStyle = &#x27;#fff&#x27;;
+        ctx.font = &#x27;48px Sans-serif&#x27;;
+        ctx.textAlign = &#x27;center&#x27;;
+        ctx.fillText(&#x27;GAME OVER&#x27;, width/2, height/2);
 
         // Draw press R to restart, text
-        ctx.font = '18px Sans-serif';
-        ctx.fillText('Press R to restart', width/2, (height/2) + 40);
+        ctx.font = &#x27;18px Sans-serif&#x27;;
+        ctx.fillText(&#x27;Press R to restart&#x27;, width/2, (height/2) + 40);
       }
     }
 
@@ -127,26 +218,26 @@ var GameObject = (function gameObjectInstanciator(){
      */
     function drawGUI() {
       // Draw Level Text
-      ctx.fillStyle = '#fff';
-      ctx.font = '20px Sans-serif';
-      ctx.textAlign = 'left';
+      ctx.fillStyle = &#x27;#fff&#x27;;
+      ctx.font = &#x27;20px Sans-serif&#x27;;
+      ctx.textAlign = &#x27;left&#x27;;
       ctx.fillText(levelText, 20, 30);
 
       // Draw Score Text
-      ctx.font = '20px Sans-serif';
-      ctx.textAlign = 'right';
+      ctx.font = &#x27;20px Sans-serif&#x27;;
+      ctx.textAlign = &#x27;right&#x27;;
       ctx.fillText(scoreText, ctx.canvas.clientWidth-20, 30);      
     }
 
     /**
      * It performs all the actions needed for levelling up, including adding
-     * obstacles and increasing `level` variable.
+     * obstacles and increasing &#x60;level&#x60; variable.
      * 
      * @method levelUp
      * @private
      */
     function levelUp() {
-      if(level < 5) {
+      if(level &lt; 5) {
         level += 1;
         updateLevelText();
 
@@ -164,7 +255,7 @@ var GameObject = (function gameObjectInstanciator(){
 
     return {
       /**
-       * It updates the `score` property, each 50 points fo score, `level` is
+       * It updates the &#x60;score&#x60; property, each 50 points fo score, &#x60;level&#x60; is
        * raised.
        * 
        * @method updateScore
@@ -177,7 +268,7 @@ var GameObject = (function gameObjectInstanciator(){
         }
       },
       /**
-       * This method kills the player and tells the `GameObject` that the game
+       * This method kills the player and tells the &#x60;GameObject&#x60; that the game
        * is over.
        * 
        * @method gameOver
@@ -187,10 +278,10 @@ var GameObject = (function gameObjectInstanciator(){
         gameover = true;
       },
       /**
-       * It returns `true` if game is over.
+       * It returns &#x60;true&#x60; if game is over.
        * 
        * @method isGameOver
-       * @return {Boolean} `gameOver` private property's value.
+       * @return {Boolean} &#x60;gameOver&#x60; private property&#x27;s value.
        */
       isGameOver: function isGameOver() {
         return gameOver;
@@ -215,7 +306,7 @@ var GameObject = (function gameObjectInstanciator(){
         updateLevelText();
       },
       /**
-       * This `Render` method is called each rendering phase from `engine.js`.
+       * This &#x60;Render&#x60; method is called each rendering phase from &#x60;engine.js&#x60;.
        * It draws the _GUI_ and _gameover screen_.
        * 
        * @method render
@@ -225,11 +316,11 @@ var GameObject = (function gameObjectInstanciator(){
         drawGUI();
       },
       /**
-       * It returns the value of the private property `level`, which represents
+       * It returns the value of the private property &#x60;level&#x60;, which represents
        * the current level.
        * 
        * @method getLevel
-       * @return {Integer} The value of `level` property.
+       * @return {Integer} The value of &#x60;level&#x60; property.
        */
       getLevel: function getLevel() {
         return level;
@@ -239,13 +330,13 @@ var GameObject = (function gameObjectInstanciator(){
 
   return {
     /**
-     * It returns a new instance of `GameObject` if no instance exists, if
+     * It returns a new instance of &#x60;GameObject&#x60; if no instance exists, if
      * already instanciated, a reference to that instance is returned instead.
      *
      * @method getInstance
      * @for GameObjectInstanciator
      * @return {Object} A reference to a new or already existing instance of
-     * `GameObject`.
+     * &#x60;GameObject&#x60;.
      */
     getInstance: function getInstance() {
       if(!instance) {
@@ -257,7 +348,7 @@ var GameObject = (function gameObjectInstanciator(){
 })();
 
 /**
- * A `GridInstanciator` is used to create a unique instance of `Grid`,
+ * A &#x60;GridInstanciator&#x60; is used to create a unique instance of &#x60;Grid&#x60;,
  * if called more than once, the same instance is returned.
  *
  * @class GridInstanciator
@@ -265,7 +356,7 @@ var GameObject = (function gameObjectInstanciator(){
  */
 var Grid = (function GridInstanciator(){
   /**
-   * Instance of `Grid` to be returned.
+   * Instance of &#x60;Grid&#x60; to be returned.
    *
    * @property instance
    * @type Object
@@ -273,7 +364,7 @@ var Grid = (function GridInstanciator(){
   var instance;
 
   /**
-   * A `Grid` object holds all methods necessary to implement a grid system on
+   * A &#x60;Grid&#x60; object holds all methods necessary to implement a grid system on
    * the game.
    * 
    * @class Grid
@@ -282,7 +373,7 @@ var Grid = (function GridInstanciator(){
   function Grid() {
 
   /**
-   * `Origin` has the coordinates (x, y) the corresponds to Row:0, Col:0.
+   * &#x60;Origin&#x60; has the coordinates (x, y) the corresponds to Row:0, Col:0.
    * 
    * @property origin
    * @type Object
@@ -295,7 +386,7 @@ var Grid = (function GridInstanciator(){
   };
 
   /**
-   * `maxRow` holds the number of the row at the bottom of the grid.
+   * &#x60;maxRow&#x60; holds the number of the row at the bottom of the grid.
    * 
    * @property maxRow
    * @type Integer
@@ -305,7 +396,7 @@ var Grid = (function GridInstanciator(){
   var maxRow = 5;
 
   /**
-   * `maxCol` holds the number of the row at the far right of the grid.
+   * &#x60;maxCol&#x60; holds the number of the row at the far right of the grid.
    * 
    * @property maxCol
    * @type Integer
@@ -337,22 +428,22 @@ var Grid = (function GridInstanciator(){
   return {
     
       /**
-       * A getter for `boxWidth` property which holds the width of a single box
+       * A getter for &#x60;boxWidth&#x60; property which holds the width of a single box
        * of the grid.
        * 
        * @method getBoxWidth
-       * @return {Integer} The value of `boxWidth` property.
+       * @return {Integer} The value of &#x60;boxWidth&#x60; property.
        */
       getBoxWidth: function get(){
         return boxWidth;
       },
 
       /**
-       * A getter for `boxHeight` property which holds the height of a single box
+       * A getter for &#x60;boxHeight&#x60; property which holds the height of a single box
        * of the grid.
        * 
        * @method getBoxHeight
-       * @return {Integer} The value of `boxHeight` property.
+       * @return {Integer} The value of &#x60;boxHeight&#x60; property.
        */
       getBoxHeight: function get() {
         return boxHeight;
@@ -370,7 +461,7 @@ var Grid = (function GridInstanciator(){
         if(row === 0) {
           y = origin.y;
         }else {
-          // It's necessary to use origin.y as offset
+          // It&#x27;s necessary to use origin.y as offset
           // variable because the value for row 0 is
           // different from  y = 0.
           y = (row * boxHeight) + origin.y;
@@ -391,7 +482,7 @@ var Grid = (function GridInstanciator(){
         return x
       },
       /**
-       * Displace the given y position up or down a `number` rows.
+       * Displace the given y position up or down a &#x60;number&#x60; rows.
        * 
        * @method displaceRows
        * @param y {Float} The current position relative to __Y__ axis.
@@ -403,7 +494,7 @@ var Grid = (function GridInstanciator(){
         return y + (number * boxHeight);
       },
       /**
-       * Displace the given x position right or left a `number` columns.
+       * Displace the given x position right or left a &#x60;number&#x60; columns.
        * 
        * @method displaceCols
        * @param x {Float} The current position relative to __X__ axis.
@@ -419,7 +510,7 @@ var Grid = (function GridInstanciator(){
        * 
        * @method inWater
        * @param y {Float} The current position relative to __Y__ axis.
-       * @return {Boolean} `true` if the current position is _in water_, `false`
+       * @return {Boolean} &#x60;true&#x60; if the current position is _in water_, &#x60;false&#x60;
        * if not.
        */
       inWater: function inWater(y) {
@@ -435,16 +526,16 @@ var Grid = (function GridInstanciator(){
        * @method inBound
        * @param y {Float} The current position relative to __X__ axis.
        * @param y {Float} The current position relative to __Y__ axis.
-       * @return {Boolean} `true` if the current position is _inside the
-       * boundaries_, `false` if not.
+       * @return {Boolean} &#x60;true&#x60; if the current position is _inside the
+       * boundaries_, &#x60;false&#x60; if not.
        */
       inBound: function inBound(x, y) {
         // It takes origin as default value, so you can omit one param.
         x = x || origin.x;
         y = y || origin.y;
 
-        if(x > this.colToX(maxCol) || y > this.rowToY(maxRow) ||
-           y < origin.y || x < origin.x) {
+        if(x &gt; this.colToX(maxCol) || y &gt; this.rowToY(maxRow) ||
+           y &lt; origin.y || x &lt; origin.x) {
           return false;
         }
         return true;
@@ -454,13 +545,13 @@ var Grid = (function GridInstanciator(){
 
   return {
     /**
-     * It returns a new instance of `Grid` if no instance exists, if
+     * It returns a new instance of &#x60;Grid&#x60; if no instance exists, if
      * already instanciated, a reference to that instance is returned instead.
      *
      * @method getInstance
      * @for GridInstanciator
      * @return {Object} A reference to a new or already existing instance of
-     * `Grid`.
+     * &#x60;Grid&#x60;.
      */
     getInstance: function getInstance() {
       if(!instance) {
@@ -498,8 +589,8 @@ function InCanvasObject(x, y) {
 }
 
 /**
- * It represents an element that has _'physical presence'_ in the game. It has a
- * `collider` and a `sprite` to be rendered. All Physical Objects can be placed
+ * It represents an element that has _&#x27;physical presence&#x27;_ in the game. It has a
+ * &#x60;collider&#x60; and a &#x60;sprite&#x60; to be rendered. All Physical Objects can be placed
  * in the grid.
  *
  * @class PhysicalObject
@@ -541,7 +632,7 @@ PhysicalObject.prototype.spawn = function spawn() {
 };
 
 /**
- * This method is executed each rendering phase in `engine.js`, drawing the
+ * This method is executed each rendering phase in &#x60;engine.js&#x60;, drawing the
  * sprite in the canvas. It also draws the collider.
  *
  * @method render
@@ -553,7 +644,7 @@ PhysicalObject.prototype.render = function render() {
 };
 
 /**
- * This method is executed each updating phase in `engine.js`. It deals with
+ * This method is executed each updating phase in &#x60;engine.js&#x60;. It deals with
  * actions such as movement and collision detection.
  *
  * @method update
@@ -563,7 +654,7 @@ PhysicalObject.prototype.render = function render() {
 PhysicalObject.prototype.update = function(dt) {};
 
 /**
- * It's a dummy for the physical form of an object which allows collision
+ * It&#x27;s a dummy for the physical form of an object which allows collision
  * detection.
  *
  * @class Collider
@@ -571,20 +662,20 @@ PhysicalObject.prototype.update = function(dt) {};
  * @param obj {Object} The object that owns the collider.
  * @param [originX=0] {Float} A position relative to __X__ axis.
  * @param [originY=0] {Float} A position relative to __Y__ axis.
- * @param [width=grid.getBoxWidth] {Float} The width of the collider's rectangle, 
- * this value defaults to the height of a grid's box.
- * @param [height=grid.boxHeight] {Float} The height of the collider's rectangle,
- * this value defaults to the width of a grid's box.
+ * @param [width=grid.getBoxWidth] {Float} The width of the collider&#x27;s rectangle, 
+ * this value defaults to the height of a grid&#x27;s box.
+ * @param [height=grid.boxHeight] {Float} The height of the collider&#x27;s rectangle,
+ * this value defaults to the width of a grid&#x27;s box.
  */
 function Collider(obj, originX, originY, width, height) {
   // Defaulting
-  originX = typeof originX === 'number' ? originX : 0;
-  originY = typeof originY === 'number' ? originY : 0;
-  height = typeof height === 'number' ? height : grid.getBoxHeight();
-  width = typeof width === 'number' ? width : grid.getBoxWidth();
+  originX = typeof originX === &#x27;number&#x27; ? originX : 0;
+  originY = typeof originY === &#x27;number&#x27; ? originY : 0;
+  height = typeof height === &#x27;number&#x27; ? height : grid.getBoxHeight();
+  width = typeof width === &#x27;number&#x27; ? width : grid.getBoxWidth();
 
   /**
-   * It's a reference to the object that owns this collider.
+   * It&#x27;s a reference to the object that owns this collider.
    *
    * @property obj
    * @type Object
@@ -604,7 +695,7 @@ function Collider(obj, originX, originY, width, height) {
   this.originX = originX;
 
   /**
-   * The same as `originX` but relative to __Y__ axis.
+   * The same as &#x60;originX&#x60; but relative to __Y__ axis.
    *
    * @property originY
    * @type Float
@@ -612,7 +703,7 @@ function Collider(obj, originX, originY, width, height) {
   this.originY = originY;
 
   /**
-   * The width of the collider's rectangle.
+   * The width of the collider&#x27;s rectangle.
    *
    * @property width
    * @type Float
@@ -620,7 +711,7 @@ function Collider(obj, originX, originY, width, height) {
   this.width = width;
 
   /**
-   * The height of the collider's rectangle.
+   * The height of the collider&#x27;s rectangle.
    *
    * @property height
    * @type Float
@@ -629,7 +720,7 @@ function Collider(obj, originX, originY, width, height) {
 }
 
 /**
- * This method is executed each rendering phase in `engine.js`, drawing the
+ * This method is executed each rendering phase in &#x60;engine.js&#x60;, drawing the
  * sprite in the canvas.
  *
  * @method render
@@ -638,7 +729,7 @@ function Collider(obj, originX, originY, width, height) {
 Collider.prototype.render = function render() {
   var position = this.getPosition();
 
-  ctx.fillStyle = 'rgba(0,0,0,0)'; // Change alpha to 1 for testing
+  ctx.fillStyle = &#x27;rgba(0,0,0,0)&#x27;; // Change alpha to 1 for testing
   ctx.fillRect(position.x, position.y, this.width, this.height);
 };
 
@@ -658,21 +749,21 @@ Collider.prototype.getPosition = function getPosition() {
 }
 
 /**
- * This method sets the collider's properties based on values passed in a
+ * This method sets the collider&#x27;s properties based on values passed in a
  * _configuration object_. Here is an example of usage, this example since
- * no value has been passed to `originX`, it uses the default value:
- *  ``` javascript
+ * no value has been passed to &#x60;originX&#x60;, it uses the default value:
+ *  &#x60;&#x60;&#x60; javascript
  *  this.collider.setCollider({
  *    originY: grid.getBoxHeight(),
  *    height: grid.getBoxHeight() * 0.7,
  *    width: grid.getBoxWidth() * 0.85
  *  });
- *  ```
+ *  &#x60;&#x60;&#x60;
  *
  * @method setCollider
  * @param confObj {Object} The configuration object. It holds the properties: 
- * `originX`, `originY`, `width`, `height`. These properties are optional and
- * default to the current value for `this`.
+ * &#x60;originX&#x60;, &#x60;originY&#x60;, &#x60;width&#x60;, &#x60;height&#x60;. These properties are optional and
+ * default to the current value for &#x60;this&#x60;.
  * @for Collider
  */
 Collider.prototype.setCollider = function set(confObj) {
@@ -682,7 +773,7 @@ Collider.prototype.setCollider = function set(confObj) {
   // then take the current value.
   for(parameter in this) {
     if(this.hasOwnProperty(parameter)) {
-      if(confObj.hasOwnProperty(parameter) && typeof confObj[parameter] === 'number') {
+      if(confObj.hasOwnProperty(parameter) &amp;&amp; typeof confObj[parameter] === &#x27;number&#x27;) {
         this[parameter] = confObj[parameter];
       }
     }
@@ -693,11 +784,11 @@ Collider.prototype.setCollider = function set(confObj) {
 // stackoverflow.com/questions/20846944/check-if-two-items-overlap-on-a-canvas-using-javascript
 /**
  * This method detects whether a collision exist between this collider and any
- * other instance of `Collider`, passed as an argument.
+ * other instance of &#x60;Collider&#x60;, passed as an argument.
  *
  * @method collision
- * @param collider {Collider} A `Collider` instance.
- * @return {Boolean} Returns `true` if a collision exists, `false` if not.
+ * @param collider {Collider} A &#x60;Collider&#x60; instance.
+ * @return {Boolean} Returns &#x60;true&#x60; if a collision exists, &#x60;false&#x60; if not.
  * @for Collider
  */
 Collider.prototype.collision = function intersects(collider) {
@@ -706,10 +797,10 @@ Collider.prototype.collision = function intersects(collider) {
   var thisPos = this.getPosition(),
       colliderPos = collider.getPosition();
 
-  return !( thisPos.x > (colliderPos.x + collider.width)  ||
-            (thisPos.x + this.width) < colliderPos.x  ||
-            thisPos.y > (colliderPos.y + collider.height) ||
-            (thisPos.y + this.height) < colliderPos.y);
+  return !( thisPos.x &gt; (colliderPos.x + collider.width)  ||
+            (thisPos.x + this.width) &lt; colliderPos.x  ||
+            thisPos.y &gt; (colliderPos.y + collider.height) ||
+            (thisPos.y + this.height) &lt; colliderPos.y);
 }
 
 /**
@@ -721,8 +812,8 @@ Collider.prototype.collision = function intersects(collider) {
  */
 function Enemy() {
   // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
-  var image = 'images/enemy-bug.png';
+  // we&#x27;ve provided one for you to get started
+  var image = &#x27;images/enemy-bug.png&#x27;;
   PhysicalObject.call(this, image);
 
   /**
@@ -744,8 +835,8 @@ function Enemy() {
 inherit(Enemy, PhysicalObject);
 
 /**
- * This method sets the `speed` property based on the current difficult level
- * in `gameObject`.
+ * This method sets the &#x60;speed&#x60; property based on the current difficult level
+ * in &#x60;gameObject&#x60;.
  *
  * @method setSpeed
  * @for Enemy
@@ -753,7 +844,7 @@ inherit(Enemy, PhysicalObject);
 Enemy.prototype.setSpeed = function setSpeed() {
   // Difficulty multiplies enemy speed up to 2 times
   var level = gameObject.getLevel(),
-      difficulty = level <= 3 ? level : 3; 
+      difficulty = level &lt;= 3 ? level : 3; 
 
   this.speed = getRandomIntInclusive(100, 250) * difficulty/2;
 }
@@ -782,7 +873,7 @@ Enemy.prototype.update = function(dt) {
   // all computers.
   
   // If outbounds, then go back to the left!
-  if(this.x >= 500){
+  if(this.x &gt;= 500){
     let randCol = getRandomIntInclusive(-4, -1),
         randRow = getRandomIntInclusive(1, 3);
     this.x = grid.colToX(randCol);
@@ -808,7 +899,7 @@ Enemy.prototype.update = function(dt) {
  */
 function Player() {
 
-  var image = 'images/char-boy.png';
+  var image = &#x27;images/char-boy.png&#x27;;
   PhysicalObject.call(this, image);
 
   /**
@@ -843,8 +934,8 @@ function Player() {
 inherit(Player, PhysicalObject);
 
 /**
- * This method sets the current position of `player` to the last position held
- * in both `lastX` and `lastY` properties.
+ * This method sets the current position of &#x60;player&#x60; to the last position held
+ * in both &#x60;lastX&#x60; and &#x60;lastY&#x60; properties.
  *
  * @method bounce
  * @for Player
@@ -855,7 +946,7 @@ Player.prototype.bounce = function bounce() {
 };
 
 /**
- * This method _kills_ `player`, by setting a position for `player` out of the
+ * This method _kills_ &#x60;player&#x60;, by setting a position for &#x60;player&#x60; out of the
  * boundaries.
  *
  * @method kill
@@ -867,7 +958,7 @@ Player.prototype.kill = function kill() {
 };
 
 /**
- * This method sets the current position of `player` as the last position. This
+ * This method sets the current position of &#x60;player&#x60; as the last position. This
  * method is called just before the player moves to a new position.
  *
  * @method recordLastPosition.
@@ -880,7 +971,7 @@ Player.prototype.recordLastPosition = function record() {
 
 /**
  * This method has all the implementations for handling player keyboard input,
- * that is moving `player` object or restarting game.
+ * that is moving &#x60;player&#x60; object or restarting game.
  *
  * @method handleInput
  * @for Player
@@ -890,32 +981,32 @@ Player.prototype.handleInput = function handleInput(input) {
         x: this.x,
         y: this.y
       },
-      axis = '',
+      axis = &#x27;&#x27;,
       distance = 0,
       nextPos = 0;
 
   switch(input) {
-    case 'down': axis = 'y'; distance = 1;
+    case &#x27;down&#x27;: axis = &#x27;y&#x27;; distance = 1;
       break;
-    case 'up': axis = 'y'; distance = -1;
+    case &#x27;up&#x27;: axis = &#x27;y&#x27;; distance = -1;
       break;
-    case 'right': axis = 'x'; distance = 1;
+    case &#x27;right&#x27;: axis = &#x27;x&#x27;; distance = 1;
       break;
-    case 'left': axis = 'x'; distance = -1;
+    case &#x27;left&#x27;: axis = &#x27;x&#x27;; distance = -1;
       break;
-    case 'r': if(gameObject.isGameOver) gameObject.restart();
+    case &#x27;r&#x27;: if(gameObject.isGameOver) gameObject.restart();
   }
 
   // In fact, it can be done better, with a different approach,
-  // but for now it's OK!
-  if(axis === 'y') {
+  // but for now it&#x27;s OK!
+  if(axis === &#x27;y&#x27;) {
     nextPos = grid.displaceRows(current[axis], distance);
     if(grid.inBound(null, nextPos)) {
       this.recordLastPosition();
       this.y = nextPos;
     }
   }
-  if(axis === 'x') {
+  if(axis === &#x27;x&#x27;) {
     nextPos = grid.displaceCols(current[axis], distance);
     if(grid.inBound(nextPos, null)) {
       this.recordLastPosition();
@@ -934,14 +1025,14 @@ Player.prototype.update = function update() {
 };
 
 /**
- * This class represents all obstacles (rocks) on the player's way.
+ * This class represents all obstacles (rocks) on the player&#x27;s way.
  *
  * @class Obstacle
  * @constructor
  * @extends PhysicalObject
  */
 function Obstacle(row, col) {
-  var image = 'images/Rock.png';
+  var image = &#x27;images/Rock.png&#x27;;
   PhysicalObject.call(this, image);
 
   this.x = grid.colToX(col);
@@ -976,7 +1067,7 @@ var enemiesNumber = 5,
   gameObject = GameObject.getInstance(),
   obstacles = [];
 
-for(let i=0; i < enemiesNumber; i++) {
+for(let i=0; i &lt; enemiesNumber; i++) {
   allEnemies.push(new Enemy());
 };
 
@@ -984,14 +1075,14 @@ for(let i=0; i < enemiesNumber; i++) {
 // LISTENERS ___________________________________________________________________
 
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
+// Player.handleInput() method. You don&#x27;t need to modify this.
+document.addEventListener(&#x27;keyup&#x27;, function(e) {
   var allowedKeys = {
-    37: 'left',
-    38: 'up',
-    39: 'right',
-    40: 'down',
-    82: 'r'
+    37: &#x27;left&#x27;,
+    38: &#x27;up&#x27;,
+    39: &#x27;right&#x27;,
+    40: &#x27;down&#x27;,
+    82: &#x27;r&#x27;
   };
 
   player.handleInput(allowedKeys[e.keyCode]);
@@ -1011,3 +1102,22 @@ function inherit(child, parent) {
   child.prototype = Object.create(parent.prototype);
   child.prototype.constructor = child;
 }
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
