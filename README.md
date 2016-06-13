@@ -5,11 +5,11 @@ This is a classic arcade game made entirely in JavaScript using HTML5 Canvas. Th
 
 ## Table of Contents
 
-1. How to Play
-2. Project's Rubric
-3. API
-4. License
-5. Acknowledgments
+1. [How to Play](#how-to-play)
+2. [Project's Rubric](#projects-rubric)
+3. [API](#api)
+4. [License](#license)
+5. [Acknowledgments](#acknowledgments)
 
 ## How to Play
 
@@ -25,7 +25,7 @@ Use the __Arrow Keys__ to move the character around. If you die, press __R__ key
 This project is made according to the following [rubric](https://review.udacity.com/#!/projects/2696458597/rubric).
 
 ## API
-API for the module present in `app.js` is available [here](./API/index.html).
+API for the module present in `app.js` is available [here](http://friasdesign.github.io/frontend-nanodegree-arcade-game/API/index.html).
 
 ## License
 
@@ -57,6 +57,6 @@ I __only__ own JS code from `app.js` file. All JS code from other files are prop
 I don't own artwork, artwork used is this game is property of their own creators.
 
 Snippets from the following sources has been used in the development of this project:
-- [Addy Osmani](addyosmani.com/resources/essentialjsdesignpatterns/book/#singletonpatternjavascript).
-- [Stack Overflow](stackoverflow.com/questions/20846944/check-if-two-items-overlap-on-a-canvas-using-javascript).
-- [MDN](developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random).
+- [Addy Osmani](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#singletonpatternjavascript).
+- [Stack Overflow](https://stackoverflow.com/questions/20846944/check-if-two-items-overlap-on-a-canvas-using-javascript).
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random).
