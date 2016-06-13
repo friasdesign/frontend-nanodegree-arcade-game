@@ -170,7 +170,7 @@ var GameObject = (function gameObjectInstanciator(){
        * @method updateScore
        */
       updateScore: function updateScore() {
-        score += 50;
+        score += 25;
         updateScoreText();
         if(score % 50 === 0) {
             levelUp();
