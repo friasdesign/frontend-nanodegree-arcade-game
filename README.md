@@ -12,6 +12,7 @@ This is a classic arcade game made entirely in JavaScript using HTML5 Canvas. Th
 5. [Acknowledgments](#acknowledgments)
 
 ## How to Play
+You can start playing rightaway, just click [here](http://friasdesign.github.io/frontend-nanodegree-arcade-game/)!
 
 ### Objective
 
