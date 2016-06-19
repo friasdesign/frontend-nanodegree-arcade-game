@@ -186,14 +186,18 @@ var GameObject = (function gameObjectInstanciator(){
         player.kill();
         gameover = true;
       },
+      // TODO change docs entry
       /**
        * It returns `true` if game is over.
        * 
        * @method isGameOver
        * @return {Boolean} `gameOver` private property's value.
        */
-      isGameOver: function isGameOver() {
-        return gameOver;
+      get isGameOver() {
+        return gameover;
+      },
+      set isGameOver(val) {
+        throw new TypeError('gameover property is private.');
       },
       /**
        * It takes all the steps needed for restarting the game, after the player
@@ -224,6 +228,7 @@ var GameObject = (function gameObjectInstanciator(){
         drawGameOverScreen();
         drawGUI();
       },
+      // TODO change docs entry
       /**
        * It returns the value of the private property `level`, which represents
        * the current level.
@@ -231,8 +236,11 @@ var GameObject = (function gameObjectInstanciator(){
        * @method getLevel
        * @return {Integer} The value of `level` property.
        */
-      getLevel: function getLevel() {
+      get level() {
         return level;
+      },
+      set level(val) {
+        throw new TypeError('level property is private.');
       }
     };
   }
@@ -335,7 +343,7 @@ var Grid = (function GridInstanciator(){
   var boxHeight = 83;
 
   return {
-    
+      // TODO change docs
       /**
        * A getter for `boxWidth` property which holds the width of a single box
        * of the grid.
@@ -343,10 +351,12 @@ var Grid = (function GridInstanciator(){
        * @method getBoxWidth
        * @return {Integer} The value of `boxWidth` property.
        */
-      getBoxWidth: function get(){
+      get boxWidth() {
         return boxWidth;
       },
-
+      set boxWidth(val) {
+        throw new TypeError('boxWidth property is private.');
+      },
       /**
        * A getter for `boxHeight` property which holds the height of a single box
        * of the grid.
@@ -354,8 +364,11 @@ var Grid = (function GridInstanciator(){
        * @method getBoxHeight
        * @return {Integer} The value of `boxHeight` property.
        */
-      getBoxHeight: function get() {
+      get boxHeight() {
         return boxHeight;
+      },
+      set boxHeight(val) {
+        throw new TypeError('boxHeight property is private.');
       },
       /**
        * Transforms a row number value to a y value in the canvas.
@@ -580,8 +593,8 @@ function Collider(obj, originX, originY, width, height) {
   // Defaulting
   originX = typeof originX === 'number' ? originX : 0;
   originY = typeof originY === 'number' ? originY : 0;
-  height = typeof height === 'number' ? height : grid.getBoxHeight();
-  width = typeof width === 'number' ? width : grid.getBoxWidth();
+  height = typeof height === 'number' ? height : grid.boxHeight;
+  width = typeof width === 'number' ? width : grid.boxWidth;
 
   /**
    * It's a reference to the object that owns this collider.
@@ -736,8 +749,8 @@ function Enemy() {
 
   // Setting collider
   this.collider.setCollider({
-    originY: grid.getBoxHeight() * 0.9,
-    height: grid.getBoxHeight() * 0.9
+    originY: grid.boxHeight * 0.9,
+    height: grid.boxHeight * 0.9
   });
 };
 
@@ -752,7 +765,7 @@ inherit(Enemy, PhysicalObject);
  */
 Enemy.prototype.setSpeed = function setSpeed() {
   // Difficulty multiplies enemy speed up to 2 times
-  var level = gameObject.getLevel(),
+  var level = gameObject.level,
       difficulty = level <= 3 ? level : 3; 
 
   this.speed = getRandomIntInclusive(100, 250) * difficulty/2;
@@ -833,10 +846,10 @@ function Player() {
 
   // Setting collider
   this.collider.setCollider({
-    originY: grid.getBoxHeight(),
+    originY: grid.boxHeight,
     originX: 10,
-    height: grid.getBoxHeight() * 0.7,
-    width: grid.getBoxWidth() * 0.85
+    height: grid.boxHeight * 0.7,
+    width: grid.boxWidth * 0.85
   });
 }
 
@@ -949,8 +962,8 @@ function Obstacle(row, col) {
 
   // Setting collider
   this.collider.setCollider({
-    originY: grid.getBoxHeight() * 0.9,
-    height: grid.getBoxHeight() * 0.9
+    originY: grid.boxHeight * 0.9,
+    height: grid.boxHeight * 0.9
   });  
 }
 
