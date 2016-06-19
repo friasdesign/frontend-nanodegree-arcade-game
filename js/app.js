@@ -186,12 +186,11 @@ var GameObject = (function gameObjectInstanciator(){
         player.kill();
         gameover = true;
       },
-      // TODO change docs entry
       /**
-       * It returns `true` if game is over.
+       * Set to `true` if game is over.
        * 
-       * @method isGameOver
-       * @return {Boolean} `gameOver` private property's value.
+       * @property isGameOver
+       * @type Boolean
        */
       get isGameOver() {
         return gameover;
@@ -228,13 +227,11 @@ var GameObject = (function gameObjectInstanciator(){
         drawGameOverScreen();
         drawGUI();
       },
-      // TODO change docs entry
       /**
-       * It returns the value of the private property `level`, which represents
-       * the current level.
+       * This property holds the value of the current level.
        * 
-       * @method getLevel
-       * @return {Integer} The value of `level` property.
+       * @property level
+       * @type Integer
        */
       get level() {
         return level;
@@ -253,7 +250,7 @@ var GameObject = (function gameObjectInstanciator(){
      * @method getInstance
      * @for GameObjectInstanciator
      * @return {Object} A reference to a new or already existing instance of
-     * `GameObject`.
+     * GameObject.
      */
     getInstance: function getInstance() {
       if(!instance) {
@@ -343,13 +340,12 @@ var Grid = (function GridInstanciator(){
   var boxHeight = 83;
 
   return {
-      // TODO change docs
       /**
-       * A getter for `boxWidth` property which holds the width of a single box
+       * `boxWidth` holds the width of a single box
        * of the grid.
        * 
-       * @method getBoxWidth
-       * @return {Integer} The value of `boxWidth` property.
+       * @property boxWidth
+       * @type Integer
        */
       get boxWidth() {
         return boxWidth;
@@ -358,11 +354,11 @@ var Grid = (function GridInstanciator(){
         throw new TypeError('boxWidth property is private.');
       },
       /**
-       * A getter for `boxHeight` property which holds the height of a single box
+       * `boxHeight` holds the height of a single box
        * of the grid.
        * 
-       * @method getBoxHeight
-       * @return {Integer} The value of `boxHeight` property.
+       * @property boxHeight
+       * @type Integer
        */
       get boxHeight() {
         return boxHeight;
@@ -396,7 +392,7 @@ var Grid = (function GridInstanciator(){
        * 
        * @method colToX
        * @param col {Integer} A column number.
-       * @return {Float} A value for x in the canvas.
+       * @return {Float} A value for X in the canvas.
        */
       colToX: function colToX(col) {
         var x = 0;
@@ -410,7 +406,7 @@ var Grid = (function GridInstanciator(){
        * @param y {Float} The current position relative to __Y__ axis.
        * @param number {Integer} The number of rows to move. A negative number
        * moves up, a positive one down.
-       * @return {Float} A new value for __Y__.
+       * @return {Float} A new value for Y.
        */
       displaceRows: function displaceRows(y, number) {
         return y + (number * boxHeight);
@@ -422,7 +418,7 @@ var Grid = (function GridInstanciator(){
        * @param x {Float} The current position relative to __X__ axis.
        * @param number {Integer} The number of cols to move. A negative number
        * moves to the left, a positive one to the right.
-       * @return {Float} A new value for __X__.
+       * @return {Float} A new value for X.
        */
       displaceCols: function displaceCols(x, number) {
         return x + (number * boxWidth);
@@ -432,7 +428,7 @@ var Grid = (function GridInstanciator(){
        * 
        * @method inWater
        * @param y {Float} The current position relative to __Y__ axis.
-       * @return {Boolean} `true` if the current position is _in water_, `false`
+       * @return {Boolean} TRUE if the current position is in water, FALSE
        * if not.
        */
       inWater: function inWater(y) {
@@ -448,8 +444,8 @@ var Grid = (function GridInstanciator(){
        * @method inBound
        * @param y {Float} The current position relative to __X__ axis.
        * @param y {Float} The current position relative to __Y__ axis.
-       * @return {Boolean} `true` if the current position is _inside the
-       * boundaries_, `false` if not.
+       * @return {Boolean} TRUE if the current position is inside the
+       * boundaries, FALSE if not.
        */
       inBound: function inBound(x, y) {
         // It takes origin as default value, so you can omit one param.
@@ -473,7 +469,7 @@ var Grid = (function GridInstanciator(){
      * @method getInstance
      * @for GridInstanciator
      * @return {Object} A reference to a new or already existing instance of
-     * `Grid`.
+     * Grid.
      */
     getInstance: function getInstance() {
       if(!instance) {
@@ -584,7 +580,7 @@ PhysicalObject.prototype.update = function(dt) {};
  * @param obj {Object} The object that owns the collider.
  * @param [originX=0] {Float} A position relative to __X__ axis.
  * @param [originY=0] {Float} A position relative to __Y__ axis.
- * @param [width=grid.getBoxWidth] {Float} The width of the collider's rectangle, 
+ * @param [width=grid.boxWidth] {Float} The width of the collider's rectangle, 
  * this value defaults to the height of a grid's box.
  * @param [height=grid.boxHeight] {Float} The height of the collider's rectangle,
  * this value defaults to the width of a grid's box.
@@ -676,9 +672,9 @@ Collider.prototype.getPosition = function getPosition() {
  * no value has been passed to `originX`, it uses the default value:
  *  ``` javascript
  *  this.collider.setCollider({
- *    originY: grid.getBoxHeight(),
- *    height: grid.getBoxHeight() * 0.7,
- *    width: grid.getBoxWidth() * 0.85
+ *    originY: grid.boxHeight(),
+ *    height: grid.boxHeight() * 0.7,
+ *    width: grid.boxWidth() * 0.85
  *  });
  *  ```
  *
@@ -710,7 +706,7 @@ Collider.prototype.setCollider = function set(confObj) {
  *
  * @method collision
  * @param collider {Collider} A `Collider` instance.
- * @return {Boolean} Returns `true` if a collision exists, `false` if not.
+ * @return {Boolean} Returns TRUE if a collision exists, FALSE if not.
  * @for Collider
  */
 Collider.prototype.collision = function intersects(collider) {
