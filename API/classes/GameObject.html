@@ -132,14 +132,6 @@ restarting game, score system, difficulty and levelling.</p>
                                 <a href="#method_gameOver">gameOver</a>
 
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getLevel">getLevel</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_isGameOver">isGameOver</a>
-
-                            </li>
                             <li class="index-item method private">
                                 <a href="#method_levelUp">levelUp</a>
 
@@ -175,7 +167,15 @@ restarting game, score system, difficulty and levelling.</p>
                                 <a href="#property_gameover">gameover</a>
 
                             </li>
+                            <li class="index-item property">
+                                <a href="#property_isGameOver">isGameOver</a>
+
+                            </li>
                             <li class="index-item property private">
+                                <a href="#property_level">level</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_level">level</a>
 
                             </li>
@@ -297,93 +297,6 @@ is over.</p>
 
 
 </div>
-<div id="method_getLevel" class="method item">
-    <h3 class="name"><code>getLevel</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Integer</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/js_app.js.html#l227"><code>js&#x2F;app.js:227</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>It returns the value of the private property <code>level</code>, which represents
-the current level.</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Integer</span>:
-                    <p>The value of <code>level</code> property.</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_isGameOver" class="method item">
-    <h3 class="name"><code>isGameOver</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Boolean</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/js_app.js.html#l189"><code>js&#x2F;app.js:189</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>It returns <code>true</code> if game is over.</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Boolean</span>:
-                    <p><code>gameOver</code> private property's value.</p>
-
-            </div>
-        </div>
-
-
-</div>
 <div id="method_levelUp" class="method item private">
     <h3 class="name"><code>levelUp</code></h3>
 
@@ -432,7 +345,7 @@ obstacles and increasing <code>level</code> variable.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_app.js.html#l217"><code>js&#x2F;app.js:217</code></a>
+        <a href="../files/js_app.js.html#l220"><code>js&#x2F;app.js:220</code></a>
         </p>
 
 
@@ -464,7 +377,7 @@ It draws the <em>GUI</em> and <em>gameover screen</em>.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_app.js.html#l198"><code>js&#x2F;app.js:198</code></a>
+        <a href="../files/js_app.js.html#l201"><code>js&#x2F;app.js:201</code></a>
         </p>
 
 
@@ -610,6 +523,31 @@ raised.</p>
 
 
 </div>
+<div id="property_isGameOver" class="property item">
+    <h3 class="name"><code>isGameOver</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/js_app.js.html#l189"><code>js&#x2F;app.js:189</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Set to <code>true</code> if game is over.</p>
+
+    </div>
+
+
+
+</div>
 <div id="property_level" class="property item private">
     <h3 class="name"><code>level</code></h3>
     <span class="type">Integer</span>
@@ -634,6 +572,31 @@ raised.</p>
     </div>
 
         <p><strong>Default:</strong> 1</p>
+
+
+</div>
+<div id="property_level" class="property item">
+    <h3 class="name"><code>level</code></h3>
+    <span class="type">Integer</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/js_app.js.html#l230"><code>js&#x2F;app.js:230</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>This property holds the value of the current level.</p>
+
+    </div>
+
 
 
 </div>

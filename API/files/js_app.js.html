@@ -261,7 +261,7 @@ var GameObject = (function gameObjectInstanciator(){
        * @method updateScore
        */
       updateScore: function updateScore() {
-        score += 50;
+        score += 25;
         updateScoreText();
         if(score % 50 === 0) {
             levelUp();
@@ -278,13 +278,16 @@ var GameObject = (function gameObjectInstanciator(){
         gameover = true;
       },
       /**
-       * It returns &#x60;true&#x60; if game is over.
+       * Set to &#x60;true&#x60; if game is over.
        * 
-       * @method isGameOver
-       * @return {Boolean} &#x60;gameOver&#x60; private property&#x27;s value.
+       * @property isGameOver
+       * @type Boolean
        */
-      isGameOver: function isGameOver() {
-        return gameOver;
+      get isGameOver() {
+        return gameover;
+      },
+      set isGameOver(val) {
+        throw new TypeError(&#x27;gameover property is private.&#x27;);
       },
       /**
        * It takes all the steps needed for restarting the game, after the player
@@ -316,14 +319,16 @@ var GameObject = (function gameObjectInstanciator(){
         drawGUI();
       },
       /**
-       * It returns the value of the private property &#x60;level&#x60;, which represents
-       * the current level.
+       * This property holds the value of the current level.
        * 
-       * @method getLevel
-       * @return {Integer} The value of &#x60;level&#x60; property.
+       * @property level
+       * @type Integer
        */
-      getLevel: function getLevel() {
+      get level() {
         return level;
+      },
+      set level(val) {
+        throw new TypeError(&#x27;level property is private.&#x27;);
       }
     };
   }
@@ -336,7 +341,7 @@ var GameObject = (function gameObjectInstanciator(){
      * @method getInstance
      * @for GameObjectInstanciator
      * @return {Object} A reference to a new or already existing instance of
-     * &#x60;GameObject&#x60;.
+     * GameObject.
      */
     getInstance: function getInstance() {
       if(!instance) {
@@ -426,27 +431,31 @@ var Grid = (function GridInstanciator(){
   var boxHeight = 83;
 
   return {
-    
       /**
-       * A getter for &#x60;boxWidth&#x60; property which holds the width of a single box
+       * &#x60;boxWidth&#x60; holds the width of a single box
        * of the grid.
        * 
-       * @method getBoxWidth
-       * @return {Integer} The value of &#x60;boxWidth&#x60; property.
+       * @property boxWidth
+       * @type Integer
        */
-      getBoxWidth: function get(){
+      get boxWidth() {
         return boxWidth;
       },
-
+      set boxWidth(val) {
+        throw new TypeError(&#x27;boxWidth property is private.&#x27;);
+      },
       /**
-       * A getter for &#x60;boxHeight&#x60; property which holds the height of a single box
+       * &#x60;boxHeight&#x60; holds the height of a single box
        * of the grid.
        * 
-       * @method getBoxHeight
-       * @return {Integer} The value of &#x60;boxHeight&#x60; property.
+       * @property boxHeight
+       * @type Integer
        */
-      getBoxHeight: function get() {
+      get boxHeight() {
         return boxHeight;
+      },
+      set boxHeight(val) {
+        throw new TypeError(&#x27;boxHeight property is private.&#x27;);
       },
       /**
        * Transforms a row number value to a y value in the canvas.
@@ -474,7 +483,7 @@ var Grid = (function GridInstanciator(){
        * 
        * @method colToX
        * @param col {Integer} A column number.
-       * @return {Float} A value for x in the canvas.
+       * @return {Float} A value for X in the canvas.
        */
       colToX: function colToX(col) {
         var x = 0;
@@ -488,7 +497,7 @@ var Grid = (function GridInstanciator(){
        * @param y {Float} The current position relative to __Y__ axis.
        * @param number {Integer} The number of rows to move. A negative number
        * moves up, a positive one down.
-       * @return {Float} A new value for __Y__.
+       * @return {Float} A new value for Y.
        */
       displaceRows: function displaceRows(y, number) {
         return y + (number * boxHeight);
@@ -500,7 +509,7 @@ var Grid = (function GridInstanciator(){
        * @param x {Float} The current position relative to __X__ axis.
        * @param number {Integer} The number of cols to move. A negative number
        * moves to the left, a positive one to the right.
-       * @return {Float} A new value for __X__.
+       * @return {Float} A new value for X.
        */
       displaceCols: function displaceCols(x, number) {
         return x + (number * boxWidth);
@@ -510,7 +519,7 @@ var Grid = (function GridInstanciator(){
        * 
        * @method inWater
        * @param y {Float} The current position relative to __Y__ axis.
-       * @return {Boolean} &#x60;true&#x60; if the current position is _in water_, &#x60;false&#x60;
+       * @return {Boolean} TRUE if the current position is in water, FALSE
        * if not.
        */
       inWater: function inWater(y) {
@@ -526,8 +535,8 @@ var Grid = (function GridInstanciator(){
        * @method inBound
        * @param y {Float} The current position relative to __X__ axis.
        * @param y {Float} The current position relative to __Y__ axis.
-       * @return {Boolean} &#x60;true&#x60; if the current position is _inside the
-       * boundaries_, &#x60;false&#x60; if not.
+       * @return {Boolean} TRUE if the current position is inside the
+       * boundaries, FALSE if not.
        */
       inBound: function inBound(x, y) {
         // It takes origin as default value, so you can omit one param.
@@ -551,7 +560,7 @@ var Grid = (function GridInstanciator(){
      * @method getInstance
      * @for GridInstanciator
      * @return {Object} A reference to a new or already existing instance of
-     * &#x60;Grid&#x60;.
+     * Grid.
      */
     getInstance: function getInstance() {
       if(!instance) {
@@ -662,7 +671,7 @@ PhysicalObject.prototype.update = function(dt) {};
  * @param obj {Object} The object that owns the collider.
  * @param [originX=0] {Float} A position relative to __X__ axis.
  * @param [originY=0] {Float} A position relative to __Y__ axis.
- * @param [width=grid.getBoxWidth] {Float} The width of the collider&#x27;s rectangle, 
+ * @param [width=grid.boxWidth] {Float} The width of the collider&#x27;s rectangle, 
  * this value defaults to the height of a grid&#x27;s box.
  * @param [height=grid.boxHeight] {Float} The height of the collider&#x27;s rectangle,
  * this value defaults to the width of a grid&#x27;s box.
@@ -671,8 +680,8 @@ function Collider(obj, originX, originY, width, height) {
   // Defaulting
   originX = typeof originX === &#x27;number&#x27; ? originX : 0;
   originY = typeof originY === &#x27;number&#x27; ? originY : 0;
-  height = typeof height === &#x27;number&#x27; ? height : grid.getBoxHeight();
-  width = typeof width === &#x27;number&#x27; ? width : grid.getBoxWidth();
+  height = typeof height === &#x27;number&#x27; ? height : grid.boxHeight;
+  width = typeof width === &#x27;number&#x27; ? width : grid.boxWidth;
 
   /**
    * It&#x27;s a reference to the object that owns this collider.
@@ -754,9 +763,9 @@ Collider.prototype.getPosition = function getPosition() {
  * no value has been passed to &#x60;originX&#x60;, it uses the default value:
  *  &#x60;&#x60;&#x60; javascript
  *  this.collider.setCollider({
- *    originY: grid.getBoxHeight(),
- *    height: grid.getBoxHeight() * 0.7,
- *    width: grid.getBoxWidth() * 0.85
+ *    originY: grid.boxHeight(),
+ *    height: grid.boxHeight() * 0.7,
+ *    width: grid.boxWidth() * 0.85
  *  });
  *  &#x60;&#x60;&#x60;
  *
@@ -788,7 +797,7 @@ Collider.prototype.setCollider = function set(confObj) {
  *
  * @method collision
  * @param collider {Collider} A &#x60;Collider&#x60; instance.
- * @return {Boolean} Returns &#x60;true&#x60; if a collision exists, &#x60;false&#x60; if not.
+ * @return {Boolean} Returns TRUE if a collision exists, FALSE if not.
  * @for Collider
  */
 Collider.prototype.collision = function intersects(collider) {
@@ -827,8 +836,8 @@ function Enemy() {
 
   // Setting collider
   this.collider.setCollider({
-    originY: grid.getBoxHeight() * 0.9,
-    height: grid.getBoxHeight() * 0.9
+    originY: grid.boxHeight * 0.9,
+    height: grid.boxHeight * 0.9
   });
 };
 
@@ -843,7 +852,7 @@ inherit(Enemy, PhysicalObject);
  */
 Enemy.prototype.setSpeed = function setSpeed() {
   // Difficulty multiplies enemy speed up to 2 times
-  var level = gameObject.getLevel(),
+  var level = gameObject.level,
       difficulty = level &lt;= 3 ? level : 3; 
 
   this.speed = getRandomIntInclusive(100, 250) * difficulty/2;
@@ -924,10 +933,10 @@ function Player() {
 
   // Setting collider
   this.collider.setCollider({
-    originY: grid.getBoxHeight(),
+    originY: grid.boxHeight,
     originX: 10,
-    height: grid.getBoxHeight() * 0.7,
-    width: grid.getBoxWidth() * 0.85
+    height: grid.boxHeight * 0.7,
+    width: grid.boxWidth * 0.85
   });
 }
 
@@ -1040,8 +1049,8 @@ function Obstacle(row, col) {
 
   // Setting collider
   this.collider.setCollider({
-    originY: grid.getBoxHeight() * 0.9,
-    height: grid.getBoxHeight() * 0.9
+    originY: grid.boxHeight * 0.9,
+    height: grid.boxHeight * 0.9
   });  
 }
 

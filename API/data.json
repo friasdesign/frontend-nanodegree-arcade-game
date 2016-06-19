@@ -68,7 +68,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 259,
+            "line": 264,
             "description": "A `GridInstanciator` is used to create a unique instance of `Grid`,\nif called more than once, the same instance is returned.",
             "static": 1
         },
@@ -81,7 +81,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 275,
+            "line": 280,
             "description": "A `Grid` object holds all methods necessary to implement a grid system on\nthe game.",
             "static": 1
         },
@@ -94,7 +94,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 474,
+            "line": 483,
             "description": "It represents an element that should be displayed in canvas. This is the most\nabstract type of object.",
             "is_constructor": 1
         },
@@ -107,7 +107,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 500,
+            "line": 509,
             "description": "It represents an element that has _'physical presence'_ in the game. It has a\n`collider` and a `sprite` to be rendered. All Physical Objects can be placed\nin the grid.",
             "is_constructor": 1,
             "extends": "InCanvasObject",
@@ -128,7 +128,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 565,
+            "line": 574,
             "description": "It's a dummy for the physical form of an object which allows collision\ndetection.",
             "is_constructor": 1,
             "params": [
@@ -156,7 +156,7 @@
                     "description": "The width of the collider's rectangle, \nthis value defaults to the height of a grid's box.",
                     "type": "Float",
                     "optional": true,
-                    "optdefault": "grid.getBoxWidth"
+                    "optdefault": "grid.boxWidth"
                 },
                 {
                     "name": "height",
@@ -176,7 +176,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 715,
+            "line": 724,
             "description": "This class represents all enemies (bugs).",
             "is_constructor": 1,
             "extends": "PhysicalObject"
@@ -190,7 +190,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 802,
+            "line": 811,
             "description": "This class represents the player itself.",
             "is_constructor": 1,
             "extends": "PhysicalObject"
@@ -204,7 +204,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "js/app.js",
-            "line": 936,
+            "line": 945,
             "description": "This class represents all obstacles (rocks) on the player's way.",
             "is_constructor": 1,
             "extends": "PhysicalObject"
@@ -350,18 +350,15 @@
         {
             "file": "js/app.js",
             "line": 189,
-            "description": "It returns `true` if game is over.",
-            "itemtype": "method",
+            "description": "Set to `true` if game is over.",
+            "itemtype": "property",
             "name": "isGameOver",
-            "return": {
-                "description": "`gameOver` private property's value.",
-                "type": "Boolean"
-            },
+            "type": "Boolean",
             "class": "GameObject"
         },
         {
             "file": "js/app.js",
-            "line": 198,
+            "line": 201,
             "description": "It takes all the steps needed for restarting the game, after the player\npress the __R__ key to restart. It respawns the player, clear obstacles,\nand resets level and score.",
             "itemtype": "method",
             "name": "restart",
@@ -369,7 +366,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 217,
+            "line": 220,
             "description": "This `Render` method is called each rendering phase from `engine.js`.\nIt draws the _GUI_ and _gameover screen_.",
             "itemtype": "method",
             "name": "render",
@@ -377,31 +374,28 @@
         },
         {
             "file": "js/app.js",
-            "line": 227,
-            "description": "It returns the value of the private property `level`, which represents\nthe current level.",
-            "itemtype": "method",
-            "name": "getLevel",
-            "return": {
-                "description": "The value of `level` property.",
-                "type": "Integer"
-            },
+            "line": 230,
+            "description": "This property holds the value of the current level.",
+            "itemtype": "property",
+            "name": "level",
+            "type": "Integer",
             "class": "GameObject"
         },
         {
             "file": "js/app.js",
-            "line": 241,
+            "line": 246,
             "description": "It returns a new instance of `GameObject` if no instance exists, if\nalready instanciated, a reference to that instance is returned instead.",
             "itemtype": "method",
             "name": "getInstance",
             "return": {
-                "description": "A reference to a new or already existing instance of\n`GameObject`.",
+                "description": "A reference to a new or already existing instance of\nGameObject.",
                 "type": "Object"
             },
             "class": "GameObjectInstanciator"
         },
         {
             "file": "js/app.js",
-            "line": 267,
+            "line": 272,
             "description": "Instance of `Grid` to be returned.",
             "itemtype": "property",
             "name": "instance",
@@ -410,7 +404,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 284,
+            "line": 289,
             "description": "`Origin` has the coordinates (x, y) the corresponds to Row:0, Col:0.",
             "itemtype": "property",
             "name": "origin",
@@ -422,7 +416,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 297,
+            "line": 302,
             "description": "`maxRow` holds the number of the row at the bottom of the grid.",
             "itemtype": "property",
             "name": "maxRow",
@@ -434,7 +428,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 307,
+            "line": 312,
             "description": "`maxCol` holds the number of the row at the far right of the grid.",
             "itemtype": "property",
             "name": "maxCol",
@@ -446,7 +440,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 317,
+            "line": 322,
             "description": "It holds the value for the __width__ of a Box in the __grid__.",
             "itemtype": "property",
             "name": "boxWidth",
@@ -458,7 +452,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 327,
+            "line": 332,
             "description": "It holds the value for the __height__ of a Box in the __grid__.",
             "itemtype": "property",
             "name": "boxHeight",
@@ -470,31 +464,25 @@
         },
         {
             "file": "js/app.js",
-            "line": 339,
-            "description": "A getter for `boxWidth` property which holds the width of a single box\nof the grid.",
-            "itemtype": "method",
-            "name": "getBoxWidth",
-            "return": {
-                "description": "The value of `boxWidth` property.",
-                "type": "Integer"
-            },
+            "line": 343,
+            "description": "`boxWidth` holds the width of a single box\nof the grid.",
+            "itemtype": "property",
+            "name": "boxWidth",
+            "type": "Integer",
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 350,
-            "description": "A getter for `boxHeight` property which holds the height of a single box\nof the grid.",
-            "itemtype": "method",
-            "name": "getBoxHeight",
-            "return": {
-                "description": "The value of `boxHeight` property.",
-                "type": "Integer"
-            },
+            "line": 356,
+            "description": "`boxHeight` holds the height of a single box\nof the grid.",
+            "itemtype": "property",
+            "name": "boxHeight",
+            "type": "Integer",
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 360,
+            "line": 369,
             "description": "Transforms a row number value to a y value in the canvas.",
             "itemtype": "method",
             "name": "rowToY",
@@ -513,7 +501,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 381,
+            "line": 390,
             "description": "Transforms a column number value to an x value in the canvas.",
             "itemtype": "method",
             "name": "colToX",
@@ -525,14 +513,14 @@
                 }
             ],
             "return": {
-                "description": "A value for x in the canvas.",
+                "description": "A value for X in the canvas.",
                 "type": "Float"
             },
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 393,
+            "line": 402,
             "description": "Displace the given y position up or down a `number` rows.",
             "itemtype": "method",
             "name": "displaceRows",
@@ -549,14 +537,14 @@
                 }
             ],
             "return": {
-                "description": "A new value for __Y__.",
+                "description": "A new value for Y.",
                 "type": "Float"
             },
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 405,
+            "line": 414,
             "description": "Displace the given x position right or left a `number` columns.",
             "itemtype": "method",
             "name": "displaceCols",
@@ -573,14 +561,14 @@
                 }
             ],
             "return": {
-                "description": "A new value for __X__.",
+                "description": "A new value for X.",
                 "type": "Float"
             },
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 417,
+            "line": 426,
             "description": "It checks whether the current __Y__ position touches the water or not.",
             "itemtype": "method",
             "name": "inWater",
@@ -592,14 +580,14 @@
                 }
             ],
             "return": {
-                "description": "`true` if the current position is _in water_, `false`\nif not.",
+                "description": "TRUE if the current position is in water, FALSE\nif not.",
                 "type": "Boolean"
             },
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 431,
+            "line": 440,
             "description": "It checks whether the current __X__, __Y__ position is inside the\nboundaries.",
             "itemtype": "method",
             "name": "inBound",
@@ -616,26 +604,26 @@
                 }
             ],
             "return": {
-                "description": "`true` if the current position is _inside the\nboundaries_, `false` if not.",
+                "description": "TRUE if the current position is inside the\nboundaries, FALSE if not.",
                 "type": "Boolean"
             },
             "class": "Grid"
         },
         {
             "file": "js/app.js",
-            "line": 456,
+            "line": 465,
             "description": "It returns a new instance of `Grid` if no instance exists, if\nalready instanciated, a reference to that instance is returned instead.",
             "itemtype": "method",
             "name": "getInstance",
             "return": {
-                "description": "A reference to a new or already existing instance of\n`Grid`.",
+                "description": "A reference to a new or already existing instance of\nGrid.",
                 "type": "Object"
             },
             "class": "GridInstanciator"
         },
         {
             "file": "js/app.js",
-            "line": 482,
+            "line": 491,
             "description": "The position of the element relative to __X__ axis.",
             "itemtype": "property",
             "name": "x",
@@ -645,7 +633,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 490,
+            "line": 499,
             "description": "The position of the element relative to __Y__ axis.",
             "itemtype": "property",
             "name": "y",
@@ -655,7 +643,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 513,
+            "line": 522,
             "description": "The sprite (image) to be drawn on the canvas.",
             "itemtype": "property",
             "name": "sprite",
@@ -664,7 +652,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 521,
+            "line": 530,
             "description": "The collider of the object, which allows collision detection.",
             "itemtype": "property",
             "name": "collider",
@@ -673,7 +661,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 532,
+            "line": 541,
             "description": "This method spawns the object on a default position in the grid.",
             "itemtype": "method",
             "name": "spawn",
@@ -681,7 +669,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 543,
+            "line": 552,
             "description": "This method is executed each rendering phase in `engine.js`, drawing the\nsprite in the canvas. It also draws the collider.",
             "itemtype": "method",
             "name": "render",
@@ -689,7 +677,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 555,
+            "line": 564,
             "description": "This method is executed each updating phase in `engine.js`. It deals with\nactions such as movement and collision detection.",
             "itemtype": "method",
             "name": "update",
@@ -704,7 +692,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 586,
+            "line": 595,
             "description": "It's a reference to the object that owns this collider.",
             "itemtype": "property",
             "name": "obj",
@@ -713,7 +701,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 596,
+            "line": 605,
             "description": "The origin point of the collider relative to\n__X__ axis. This value represents position of the collider relative to the\nposition of the owning object.",
             "itemtype": "property",
             "name": "originX",
@@ -722,7 +710,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 606,
+            "line": 615,
             "description": "The same as `originX` but relative to __Y__ axis.",
             "itemtype": "property",
             "name": "originY",
@@ -731,7 +719,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 614,
+            "line": 623,
             "description": "The width of the collider's rectangle.",
             "itemtype": "property",
             "name": "width",
@@ -740,7 +728,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 622,
+            "line": 631,
             "description": "The height of the collider's rectangle.",
             "itemtype": "property",
             "name": "height",
@@ -749,7 +737,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 631,
+            "line": 640,
             "description": "This method is executed each rendering phase in `engine.js`, drawing the\nsprite in the canvas.",
             "itemtype": "method",
             "name": "render",
@@ -757,7 +745,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 645,
+            "line": 654,
             "description": "It returns the current position of the collider. Which is the position of\nthe upper left corner of the rectangle.",
             "itemtype": "method",
             "name": "getPosition",
@@ -769,8 +757,8 @@
         },
         {
             "file": "js/app.js",
-            "line": 660,
-            "description": "This method sets the collider's properties based on values passed in a\n_configuration object_. Here is an example of usage, this example since\nno value has been passed to `originX`, it uses the default value:\n ``` javascript\n this.collider.setCollider({\n   originY: grid.getBoxHeight(),\n   height: grid.getBoxHeight() * 0.7,\n   width: grid.getBoxWidth() * 0.85\n });\n ```",
+            "line": 669,
+            "description": "This method sets the collider's properties based on values passed in a\n_configuration object_. Here is an example of usage, this example since\nno value has been passed to `originX`, it uses the default value:\n ``` javascript\n this.collider.setCollider({\n   originY: grid.boxHeight(),\n   height: grid.boxHeight() * 0.7,\n   width: grid.boxWidth() * 0.85\n });\n ```",
             "itemtype": "method",
             "name": "setCollider",
             "params": [
@@ -784,7 +772,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 694,
+            "line": 703,
             "description": "This method detects whether a collision exist between this collider and any\nother instance of `Collider`, passed as an argument.",
             "itemtype": "method",
             "name": "collision",
@@ -796,14 +784,14 @@
                 }
             ],
             "return": {
-                "description": "Returns `true` if a collision exists, `false` if not.",
+                "description": "Returns TRUE if a collision exists, FALSE if not.",
                 "type": "Boolean"
             },
             "class": "Collider"
         },
         {
             "file": "js/app.js",
-            "line": 728,
+            "line": 737,
             "description": "The speed the enemy moves around the grid.",
             "itemtype": "property",
             "name": "speed",
@@ -813,7 +801,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 746,
+            "line": 755,
             "description": "This method sets the `speed` property based on the current difficult level\nin `gameObject`.",
             "itemtype": "method",
             "name": "setSpeed",
@@ -821,7 +809,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 814,
+            "line": 823,
             "description": "This property holds the value of the last position relative to __X__ axis.",
             "itemtype": "property",
             "name": "lastX",
@@ -831,7 +819,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 824,
+            "line": 833,
             "description": "This property holds the value of the last position relative to __Y__ axis.",
             "itemtype": "property",
             "name": "lastX",
@@ -841,7 +829,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 845,
+            "line": 854,
             "description": "This method sets the current position of `player` to the last position held\nin both `lastX` and `lastY` properties.",
             "itemtype": "method",
             "name": "bounce",
@@ -849,7 +837,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 857,
+            "line": 866,
             "description": "This method _kills_ `player`, by setting a position for `player` out of the\nboundaries.",
             "itemtype": "method",
             "name": "kill",
@@ -857,7 +845,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 869,
+            "line": 878,
             "description": "This method sets the current position of `player` as the last position. This\nmethod is called just before the player moves to a new position.",
             "itemtype": "method",
             "name": "recordLastPosition.",
@@ -865,7 +853,7 @@
         },
         {
             "file": "js/app.js",
-            "line": 881,
+            "line": 890,
             "description": "This method has all the implementations for handling player keyboard input,\nthat is moving `player` object or restarting game.",
             "itemtype": "method",
             "name": "handleInput",
